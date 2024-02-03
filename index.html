@@ -13,38 +13,41 @@
     <link rel = "stylesheet" href = "main.css" />
 </head>
 <body>
+    
     <main class="app">
 
-        <section class="greeting">
-            <h2 class="title">
-                What's the plan?
-            </h2>
-        </section>
-
-        <section class="create-todo">
-            <h3>CREATE A TODO</h3>
-            <form id="new-todo-form">
+		<section class="greeting">
+			<h2 class="title">
+				What's the plan?
+			</h2>
+		</section>
+		
+		<section class="create-todo">
+			<h3>CREATE A TODO</h3>
+			<form id="new-todo-form">
                 <h4>What's on your todo list?</h4>
                 <input 
                     type="text" 
                     name="content" 
                     id="content" 
-                    placeholder="e.g. go to the gym" />
+                    placeholder="e.g. go to the gym" 
+                />
 
-                <h4>Pick a category</h4>
-                <div class="options">
+				<h4>Pick a category</h4>
+				<div class="options">           					
                     
                     <label>
                         <input 
                             type="radio" 
                             name="category" 
                             id="category1"
-                            value="Priority" />
+                            value="Priority" 
+                        />
                         <span class="bubble priority"></span>
                         <div>Priority</div>
                     </label>
 
-                    <label>
+					<label>
                         <input 
                             type="radio" 
                             name="category" 
@@ -52,54 +55,21 @@
                             value="Later" />
                         <span class="bubble later"></span>
                         <div>Later</div>
-                    </label>
+					</label>
 
-                </div>
+				</div>
 
-                <input type="submit" value="Add Todo" />
-            </form>
-        </section>
+				<input type="submit" value="Add Todo" />
+			</form>
+		</section>
 
-        <section class="todo-list">
-            <h3>TODO LIST</h3>
-            <div class="list" id="todo-list">
-                <div class="todo-item done">
-                    <label>
-                        <input type="checkbox" />
-                        <span class="bubble priority"></span>
-                    </label>
+		<section class="todo-list">
+			<h3>TODO LIST</h3>
+			<div class="list" id="todo-list"></div>
+		</section>
 
-                    <div class="todo-content">
-                        <input type="text" value="Go to the gym" readonly />
-                    </div>
+	</main>
 
-                    <div class="actions">
-                        <button class="edit">Edit</button>
-                        <button class="delete">Delete</button>
-                    </div>
-                </div>
-
-                <div class="todo-item">
-                    <label>
-                        <input type="checkbox" />
-                        <span class="bubble later"></span>
-                    </label>
-
-                    <div class="todo-content">
-                        <input type="text" value="Read a book" readonly />
-                    </div>
-
-                    <div class="actions">
-                        <button class="edit">Edit</button>
-                        <button class="delete">Delete</button>
-                    </div>
-                </div>
-
-
-            </div>
-        </section>
-        
-    </main>
-    <script src="main.js"></script>
+	<script src="main.js"></script>
 </body>
 </html>
