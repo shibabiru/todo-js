@@ -155,7 +155,6 @@ input:checked ~ .bubble::after {
     color: #FFF;
     background-color: var(--primary);
     border-radius: 0.5rem;
-    box-shadow: var(--later-glow);
     cursor: pointer;
     transition: 0.2s ease-in-out;
 }
@@ -223,4 +222,10 @@ input:checked ~ .bubble::after {
 .todo-item.done .todo-content input {
     text-decoration: line-through;
     color: var(--grey);
+}
+
+.error-message {
+    color: var(--danger);
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
 }

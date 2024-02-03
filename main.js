@@ -7,7 +7,29 @@ window.addEventListener('load', () => {
 	newTodoForm.addEventListener('submit', e => {
 		e.preventDefault();
 
-		const todo = {
+        const contentError = document.getElementById('content-error');
+        const categoryError = document.getElementById('category-error');
+    
+        const contentInput = e.target.elements.content;
+        const categoryInput = e.target.elements.category;
+    
+        // Check for empty content
+        if (contentInput.value.trim() === '') {
+            contentError.textContent = 'Content cannot be empty. Please enter a task.';
+            return;
+        } else {
+            contentError.textContent = '';
+        }
+    
+        // Check if a category is selected
+        if (!categoryInput.value) {
+            categoryError.textContent = 'Please select a category for the task.';
+            return;
+        } else {
+            categoryError.textContent = '';
+        }
+    
+        const todo = {
 			content: e.target.elements.content.value,
 			category: e.target.elements.category.value,
 			done: false,
