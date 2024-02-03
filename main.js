@@ -28,6 +28,14 @@ window.addEventListener('load', () => {
         } else {
             categoryError.textContent = '';
         }
+
+        // Check if content length is within the limit
+        if (contentInput.value.trim().length > 30) {
+            contentError.textContent = 'Content cannot exceed 30 characters.';
+            return;
+        } else {
+            contentError.textContent = '';
+        }
     
         const todo = {
 			content: e.target.elements.content.value,
