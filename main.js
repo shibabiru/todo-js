@@ -57,11 +57,16 @@ window.addEventListener('load', () => {
 })
 
 // Function to display Todos
-function DisplayTodos () {
+function DisplayTodos (categoryFilter = null) {
 	const todoList = document.querySelector('#todo-list');
 	todoList.innerHTML = "";
 
-	todos.forEach(todo => {
+    const filteredTodos = categoryFilter
+    ? todos.filter(todo => todo.category === categoryFilter)
+    : todos;
+    const viewAll = document.getElementById('all-btn');
+
+	filteredTodos.forEach(todo => {
 		const todoItem = document.createElement('div');
 		todoItem.classList.add('todo-item');
 
@@ -139,5 +144,17 @@ function DisplayTodos () {
 			DisplayTodos()
 		})
 
-	})
+        // Handle the click event listeners for category buttons
+        document.querySelectorAll('.view-category').forEach(button => {
+            button.addEventListener('click', function() {
+                const category = this.dataset.category;
+                DisplayTodos(category);
+            });
+        });
+
+        // Handle the click event for the all button
+        viewAll.addEventListener('click', () => {
+            DisplayTodos();
+        }); 
+	});
 }
