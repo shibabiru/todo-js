@@ -187,10 +187,24 @@ input:checked ~ .bubble::after {
     flex: 1 1 0%;    
 }
 
-.todo-item .todo-content input {
+.todo-info {
+    display: flex;
+    align-items: center;
+}
+
+.todo-info input {
     color: var(--dark);
     font-size: 1.125rem;
-    width: 90%;
+    width: 80%;
+}
+
+.time-stamp {
+    text-align: right;
+    padding-right: 18px;
+    font-size: 0.75rem;
+    color: var(--grey);
+    width: 20%;
+    margin-top: 0.5rem;
 }
 
 .todo-item .actions {

@@ -41,7 +41,8 @@ window.addEventListener('load', () => {
 			content: e.target.elements.content.value,
 			category: e.target.elements.category.value,
 			done: false,
-			createdAt: new Date().getTime()
+			createdAt: new Date().getTime(),
+            updatedAt: null,
 		}
 
 		todos.push(todo);
@@ -91,8 +92,16 @@ function DisplayTodos (categoryFilter = null) {
 		edit.classList.add('edit');
 		deleteButton.classList.add('delete');
 
-		content.innerHTML = `<input type="text" value="${todo.content}" readonly>`;
-		edit.innerHTML = 'Edit';
+        content.innerHTML = `
+        <div class="todo-info">
+            <input type="text" value="${todo.content}" readonly>
+            <div class="time-stamp">
+                <p class="created-at">Created: ${new Date(todo.createdAt).toLocaleString()}</p>
+                <p class="updated-at">Updated: ${todo.updatedAt ? new Date(todo.updatedAt).toLocaleString() : 'Not updated'}</p>
+            </div>
+        </div>
+    	`;
+        edit.innerHTML = 'Edit';
 		deleteButton.innerHTML = 'Delete';
 
 		label.appendChild(input);
@@ -112,6 +121,7 @@ function DisplayTodos (categoryFilter = null) {
         // Handle changes in the checkbox state
 		input.addEventListener('change', (e) => {
 			todo.done = e.target.checked;
+            todo.updatedAt = new Date().getTime();
 			localStorage.setItem('todos', JSON.stringify(todos));
 
 			if (todo.done) {
