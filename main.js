@@ -56,114 +56,118 @@ window.addEventListener('load', () => {
     DisplayTodos();
 });
 
-// Function to display Todos
-function DisplayTodos (categoryFilter = null) {
-	const todoList = document.querySelector('#todo-list');
-	todoList.innerHTML = "";
+function createTodoElement(todo) {
+    const todoItem = document.createElement('div');
+    todoItem.classList.add('todo-item');
 
-    const filteredTodos = categoryFilter
-    ? todos.filter(todo => todo.category === categoryFilter)
-    : todos;
-    const viewAll = document.querySelector('.view-all');
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    const span = document.createElement('span');
+    const content = document.createElement('div');
+    const actions = document.createElement('div');
+    const edit = document.createElement('button');
+    const deleteButton = document.createElement('button');
 
-	filteredTodos.forEach(todo => {
-		const todoItem = document.createElement('div');
-		todoItem.classList.add('todo-item');
+    input.type = 'checkbox';
+    input.checked = todo.done;
+    span.classList.add('bubble');
+    span.classList.add(todo.category === 'Priority' ? 'priority' : 'later');
+    content.classList.add('todo-content');
+    actions.classList.add('actions');
+    edit.classList.add('edit');
+    deleteButton.classList.add('delete');
 
-		const label = document.createElement('label');
-		const input = document.createElement('input');
-		const span = document.createElement('span');
-		const content = document.createElement('div');
-		const actions = document.createElement('div');
-		const edit = document.createElement('button');
-		const deleteButton = document.createElement('button');
-
-		input.type = 'checkbox';
-		input.checked = todo.done;
-		span.classList.add('bubble');
-		if (todo.category == 'Priority') {
-			span.classList.add('priority');
-		} else {
-			span.classList.add('later');
-		}
-		content.classList.add('todo-content');
-		actions.classList.add('actions');
-		edit.classList.add('edit');
-		deleteButton.classList.add('delete');
-
-        content.innerHTML = `
+    content.innerHTML = `
         <div class="todo-info">
-		<input type="text" value="${todo.content}" readonly>
+            <input type="text" value="${todo.content}" readonly>
             <div class="time-stamp">
                 <p class="created-at">Created: ${new Date(todo.createdAt).toLocaleString()}</p>
                 <p class="updated-at">Updated: ${todo.updatedAt ? new Date(todo.updatedAt).toLocaleString() : 'Not updated'}</p>
             </div>
         </div>
-    	`;
-        edit.innerHTML = 'Edit';
-		deleteButton.innerHTML = 'Delete';
+    `;
+    edit.innerHTML = 'Edit';
+    deleteButton.innerHTML = 'Delete';
 
-		label.appendChild(input);
-		label.appendChild(span);
-		actions.appendChild(edit);
-		actions.appendChild(deleteButton);
-		todoItem.appendChild(label);
-		todoItem.appendChild(content);
-		todoItem.appendChild(actions);
+    label.appendChild(input);
+    label.appendChild(span);
+    actions.appendChild(edit);
+    actions.appendChild(deleteButton);
+    todoItem.appendChild(label);
+    todoItem.appendChild(content);
+    todoItem.appendChild(actions);
 
-		todoList.appendChild(todoItem);
+    if (todo.done) {
+        todoItem.classList.add('done');
+    }
 
-		if (todo.done) {
-			todoItem.classList.add('done');
-		}
-		
-        // Handle changes in the checkbox state
-		input.addEventListener('change', (e) => {
-			todo.done = e.target.checked;
-            todo.updatedAt = new Date().getTime();
-			localStorage.setItem('todos', JSON.stringify(todos));
+    return todoItem;
+}
 
-			if (todo.done) {
-				todoItem.classList.add('done');
-			} else {
-				todoItem.classList.remove('done');
-			}
+function attachEventListeners(todoItem, todo) {
+    const input = todoItem.querySelector('input');
+    const edit = todoItem.querySelector('.edit');
+    const deleteButton = todoItem.querySelector('.delete');
 
-			DisplayTodos()
+    input.addEventListener('change', () => {
+        todo.done = input.checked;
+        todo.updatedAt = new Date().getTime();
+        localStorage.setItem('todos', JSON.stringify(todos));
 
-		})
-        // Handle clicks on the edit button
-		edit.addEventListener('click', (e) => {
-			const input = content.querySelector('input');
-			input.removeAttribute('readonly');
-			input.focus();
-			input.addEventListener('blur', (e) => {
-				input.setAttribute('readonly', true);
-				todo.content = e.target.value;
-				localStorage.setItem('todos', JSON.stringify(todos));
-				DisplayTodos()
+        if (todo.done) {
+            todoItem.classList.add('done');
+        } else {
+            todoItem.classList.remove('done');
+        }
 
-			})
-		})
+        DisplayTodos();
+    });
 
-        // Handle clicks on the delete button
-		deleteButton.addEventListener('click', (e) => {
-			todos = todos.filter(t => t != todo);
-			localStorage.setItem('todos', JSON.stringify(todos));
-			DisplayTodos()
-		})
-
-        // Handle the click event listeners for category buttons
-        document.querySelectorAll('.view-category').forEach(button => {
-            button.addEventListener('click', function() {
-                const category = this.dataset.category;
-                DisplayTodos(category);
-            });
-        });
-
-        // Handle the click event for the all button
-        viewAll.addEventListener('click', () => {
+    edit.addEventListener('click', () => {
+        const inputField = todoItem.querySelector('input[type="text"]');
+        inputField.removeAttribute('readonly');
+        inputField.focus();
+        inputField.addEventListener('blur', () => {
+            inputField.setAttribute('readonly', true);
+            todo.content = inputField.value;
+            localStorage.setItem('todos', JSON.stringify(todos));
             DisplayTodos();
-        }); 
-	});
+        });
+    });
+
+    deleteButton.addEventListener('click', () => {
+        todos = todos.filter(t => t !== todo);
+        localStorage.setItem('todos', JSON.stringify(todos));
+        DisplayTodos();
+    });
+}
+
+function DisplayTodos(categoryFilter = null) {
+    const todoList = document.querySelector('#todo-list');
+    todoList.innerHTML = "";
+
+    const filteredTodos = categoryFilter
+        ? todos.filter(todo => todo.category === categoryFilter)
+        : todos;
+    const viewAll = document.querySelector('.view-all');
+
+    filteredTodos.forEach(todo => {
+        const todoItem = createTodoElement(todo);
+        attachEventListeners(todoItem, todo);
+
+        todoList.appendChild(todoItem);
+    });
+
+    // Handle the click event listeners for category buttons
+    document.querySelectorAll('.view-category').forEach(button => {
+        button.addEventListener('click', function () {
+            const category = this.dataset.category;
+            DisplayTodos(category);
+        });
+    });
+
+    // Handle the click event for the all button
+    viewAll.addEventListener('click', () => {
+        DisplayTodos();
+    });
 }
