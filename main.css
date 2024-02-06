@@ -20,17 +20,18 @@
     font-family: 'montserrat', sans-serif;
 }
 
-input:not([type="radio"]):not([type="checkbox"]), button {
+body {
+    background: var(--light);
+    color: var(--dark);
+}
+
+button,
+input:not([type="radio"]):not([type="checkbox"]) {
     appearance: none;
     border: none;
     outline: none;
     background: none;
     cursor: initial;
-}
-
-body {
-    background: var(--light);
-    color: var(--dark);
 }
 
 section {
@@ -53,14 +54,7 @@ h4 {
     margin-bottom: 0.5rem;
 }
 
-.greeting .title input {
-    margin-left: 0.5rem;
-    flex: 1 1 0%;
-    min-width: 0;
-}
-
-.greeting .title,
-.greeting .title input {
+.greeting .title　{
     color: var(--dark);
     font-size: 1.5rem;
     font-weight: 700;
@@ -90,7 +84,7 @@ h4 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem;
+    padding: 1.0rem;
     background-color: #FFF;
     border-radius: 0.5rem;
     box-shadow: var(--shadow);
@@ -102,6 +96,7 @@ input[type="checkbox"] {
     display: none;
 }
 
+/* Bubble styles */
 .bubble {
     display: flex;
     align-items: center;
@@ -110,12 +105,10 @@ input[type="checkbox"] {
     height: 20px;
     border-radius: 50%;
     border: 2px solid var(--priority);
-    box-shadow: var(--priority-glow);
 }
 
 .bubble.later {
     border-color: var(--later);
-    box-shadow: var(--later-glow);
 }
 
 .bubble::after {
@@ -141,6 +134,22 @@ input:checked ~ .bubble::after {
     opacity: 1;
 }
 
+#todo-list {
+    position: relative;
+    margin-top: 20px;
+    height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
 .create-todo .options label div {
     color: var(--dark);
     font-size: 1.125rem;
@@ -161,6 +170,13 @@ input:checked ~ .bubble::after {
 
 .create-todo input[type="submit"]:hover {
     opacity: 0.75;
+}
+
+.view-category:hover,
+.view-all:hover {
+    color: #ff5b57; 
+    cursor: pointer; 
+    transform: scale(1.1);
 }
 
 .todo-list .list {
@@ -190,6 +206,7 @@ input:checked ~ .bubble::after {
 .todo-info {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .todo-info input {
@@ -199,12 +216,7 @@ input:checked ~ .bubble::after {
 }
 
 .time-stamp {
-    text-align: right;
-    padding-right: 18px;
-    font-size: 0.75rem;
-    color: var(--grey);
-    width: 20%;
-    margin-top: 0.5rem;
+    display: none;
 }
 
 .todo-item .actions {
@@ -245,22 +257,18 @@ input:checked ~ .bubble::after {
     margin-top: 0.5rem;
 }
 
-#todo-list {
-    position: relative;
-    margin-top: 20px;
-    height: 600px;
-    overflow-y: auto;
-    padding-right: 10px;
-}
-
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #888;
-}
-
 .view-category {
     margin-right: 20px;
+}
+
+@media (min-width: 768px) {
+    .time-stamp {
+        display: block;
+        text-align: right;
+        padding-right: 18px;
+        font-size: 0.75rem;
+        color: var(--grey);
+        width: 20%;
+        margin-top: 0.5rem;    
+    }    
 }
