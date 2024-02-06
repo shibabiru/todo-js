@@ -1,61 +1,60 @@
 window.addEventListener('load', () => {
-	todos = JSON.parse(localStorage.getItem('todos')) || [];
+    todos = JSON.parse(localStorage.getItem('todos')) || [];
 
-    // Get the form to add a new Todo
-	const newTodoForm = document.querySelector('#new-todo-form');
+    const newTodoForm = document.querySelector('#new-todo-form');
+    const contentError = document.getElementById('content-error');
+    const categoryError = document.getElementById('category-error');
 
-	newTodoForm.addEventListener('submit', e => {
-		e.preventDefault();
+    const errors = {
+        emptyContent: 'Content cannot be empty. Please enter a task.',
+        noCategory: 'Please select a category for the task.',
+        contentLengthExceed: 'Content cannot exceed 30 characters.',
+    };
 
-        const contentError = document.getElementById('content-error');
-        const categoryError = document.getElementById('category-error');
-    
-        const contentInput = e.target.elements.content;
-        const categoryInput = e.target.elements.category;
-    
+    newTodoForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const contentValue = e.target.elements.content.value.trim();
+        const categoryValue = e.target.elements.category.value;
+
         // Check for empty content
-        if (contentInput.value.trim() === '') {
-            contentError.textContent = 'Content cannot be empty. Please enter a task.';
+        if (!contentValue) {
+            contentError.textContent = errors.emptyContent;
             return;
-        } else {
-            contentError.textContent = '';
         }
-    
+
         // Check if a category is selected
-        if (!categoryInput.value) {
-            categoryError.textContent = 'Please select a category for the task.';
+        if (!categoryValue) {
+            categoryError.textContent = errors.noCategory;
             return;
-        } else {
-            categoryError.textContent = '';
         }
 
         // Check if content length is within the limit
-        if (contentInput.value.trim().length > 30) {
-            contentError.textContent = 'Content cannot exceed 30 characters.';
+        if (contentValue.length > 30) {
+            contentError.textContent = errors.contentLengthExceed;
             return;
-        } else {
-            contentError.textContent = '';
         }
-    
+
+        contentError.textContent = '';
+        categoryError.textContent = '';
+
         const todo = {
-			content: e.target.elements.content.value,
-			category: e.target.elements.category.value,
-			done: false,
-			createdAt: new Date().getTime(),
+            content: contentValue,
+            category: categoryValue,
+            done: false,
+            createdAt: new Date().getTime(),
             updatedAt: null,
-		}
+        };
 
-		todos.push(todo);
+        todos.push(todo);
+        localStorage.setItem('todos', JSON.stringify(todos));
 
-		localStorage.setItem('todos', JSON.stringify(todos));
+        e.target.reset();
+        DisplayTodos();
+    });
 
-		e.target.reset();
-
-		DisplayTodos();
-	})
-
-	DisplayTodos();
-})
+    DisplayTodos();
+});
 
 // Function to display Todos
 function DisplayTodos (categoryFilter = null) {
@@ -65,7 +64,7 @@ function DisplayTodos (categoryFilter = null) {
     const filteredTodos = categoryFilter
     ? todos.filter(todo => todo.category === categoryFilter)
     : todos;
-    const viewAll = document.getElementById('all-btn');
+    const viewAll = document.querySelector('.view-all');
 
 	filteredTodos.forEach(todo => {
 		const todoItem = document.createElement('div');
@@ -94,7 +93,7 @@ function DisplayTodos (categoryFilter = null) {
 
         content.innerHTML = `
         <div class="todo-info">
-            <input type="text" value="${todo.content}" readonly>
+		<input type="text" value="${todo.content}" readonly>
             <div class="time-stamp">
                 <p class="created-at">Created: ${new Date(todo.createdAt).toLocaleString()}</p>
                 <p class="updated-at">Updated: ${todo.updatedAt ? new Date(todo.updatedAt).toLocaleString() : 'Not updated'}</p>
