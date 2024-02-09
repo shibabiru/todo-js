@@ -130,7 +130,7 @@ function attachEventListeners(todoItem, todo) {
         inputField.addEventListener('blur', () => {
             inputField.setAttribute('readonly', true);
             todo.content = inputField.value;
-            todo.updatedAt = new Date().getTime(); // 編集日時を更新
+            todo.updatedAt = new Date().getTime();
             localStorage.setItem('todos', JSON.stringify(todos));
             DisplayTodos();
         });
