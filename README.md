@@ -21,7 +21,7 @@ A minimalistic TODO List web application with the following features:
 ## Getting Started
 1. Clone the repository or download the source code.
 2. Open 'index.html' in your preferred web browser.
-3. Also, you can access and try the application using the Vercel-deployed URL: [https://todo-coral-nine-17.vercel.app]
+3. Also, you can access and try the application using the Vercel-deployed URL: [https://todo-uzu6.vercel.app]
 
 
 ***
