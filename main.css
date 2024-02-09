@@ -176,7 +176,6 @@ input:checked ~ .bubble::after {
 
 .view-category:hover,
 .view-all:hover {
-    color: #ff5b57; 
     cursor: pointer; 
     transform: scale(1.1);
     transition: 0.2s ease-in-out;
