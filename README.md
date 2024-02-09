@@ -17,7 +17,6 @@ A minimalistic TODO List web application with the following features:
 1. **Create a Task:** Use the form to input your task and select a category. Prioritize tasks or mark them for later with the category options.
 2. **Manage Tasks:** Check off completed tasks, edit content, or delete unwanted items.
 3. **Filter by Category:** Use the category buttons ("Priority", "Later", "View all") to display a list of items categorized by priority, deferment, or view all.
-4. **View All Tasks:** Click the "View all" button to see your entire task list.
 
 ## Getting Started
 1. Clone the repository or download the source code.
@@ -44,10 +43,9 @@ TODO リストのウェブアプリケーション。タスクをカテゴリご
 ## 使い方
 1. **タスクの作成:** フォームを使用してタスクを入力し、カテゴリを選択します。カテゴリのオプションを使用して、タスクに優先順位をつけたり、後で処理することができます。
 2. **タスクの管理:** 完了したタスクをチェックし、コンテンツを編集したり、不要なアイテムを削除します。
-3. **カテゴリでフィルタリング:** カテゴリのボタン("Priority", "Later", "View all")を使用して、優先度や後で処理するアイテム一覧を表示します。
-4. **すべてのタスクを表示:** 「すべて表示」ボタンをクリックして、タスクリスト全体を表示します。
+3. **カテゴリでフィルタリング:** カテゴリのボタン("Priority", "Later", "View all")を使用して、優先度の高いタスク、後で処理するタスク、全体のタスクの一覧をカテゴリ別に表示します。
 
 ## 開始方法
 1. リポジトリをクローンするか、ソースコードをダウンロードします。
 2. お好きなウェブブラウザで index.html を開きます。
-3. もしくは、Vercel でデプロイされた URL を使用してアプリケーションをアクセスし、試すことができます: [https://todo-coral-nine-17.vercel.app]
+3. もしくは、Vercel でデプロイされた URL を使用してアプリケーションをアクセスし、試すことができます: [https://todo-uzu6.vercel.app]
